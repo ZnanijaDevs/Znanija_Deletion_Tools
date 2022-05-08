@@ -9,8 +9,7 @@ export default function UserPreview(props: { userId: number }) {
   const [user, setUser] = useState<UserDataType>(null);
 
   useEffect(() => {
-    GetUser(props.userId)
-      .then(user => setUser(user));
+    GetUser(props.userId).then(user => setUser(user));
   }, []);
 
   if (!user) return <Flex justifyContent="center"><Spinner size="xsmall" /></Flex>;

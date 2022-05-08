@@ -1,5 +1,4 @@
 {
-  "author": "andrewss <andrewss.krlv@gmail.com>",
   "name": "Удалятор SpamOuts",
   "description": "Полезные функции для облегчения работы удалятора на znanija.com",
   "icons": {
@@ -33,5 +32,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage"]
+  "permissions": ["storage"],
+  "short_name": "Znanija_Deletion_Tools"
 }

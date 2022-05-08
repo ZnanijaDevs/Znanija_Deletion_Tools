@@ -1,5 +1,8 @@
-// TODO: implement GetUser() in `brainly-api` package
-import { UserDataType, UserWarnDataType, UserActiveBanDetailsDataType } from "@typings/brainly";
+import type { 
+  UserDataType, 
+  UserWarnDataType, 
+  UserActiveBanDetailsDataType 
+} from "@typings/brainly";
 
 const WaitForPage = async (path: string) => {
   const r = await fetch(path);

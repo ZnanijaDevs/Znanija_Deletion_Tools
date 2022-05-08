@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-const { version } = require("./package.json");
+const { version, author } = require("./package.json");
 const makeEntries = require("./makeContentScriptEntries");
 
 /** @type {webpack.Configuration} */
@@ -27,6 +27,7 @@ const config = {
             _content = JSON.parse(_content);
 
             _content["version"] = version;
+            _content["author"] = author;
 
             return JSON.stringify(_content);
           }

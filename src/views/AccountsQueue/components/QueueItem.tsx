@@ -6,7 +6,7 @@ import WithTooltip from "./WithTooltip";
 import UserPreview from "./UserPreview";
 import DeleteUserTooltip from "./DeleteUserTooltip";
 
-import type { Message } from "typings";
+import type { Message } from "@typings";
 
 export default function QueueItem(props: {
   item: Message
