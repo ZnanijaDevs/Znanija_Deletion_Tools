@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./src",
+    "target": "ESNext",
+    "module": "commonjs",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": ["ES5", "ES6", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "paths": {
+      "@typings": ["typings"],
+      "@typings/*": ["typings/*"],
+      "@api/*": ["api/*"],
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"],
+  "include": ["src"]
+}

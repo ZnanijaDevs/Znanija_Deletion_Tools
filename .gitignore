@@ -1,0 +1,9 @@
+old_versions/
+build/
+node_modules/
+package-lock.json
+dist/
+.env
+env.*
+debug.*
+_BUNDLE.zip

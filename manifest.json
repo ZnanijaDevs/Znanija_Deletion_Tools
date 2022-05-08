@@ -1,0 +1,37 @@
+{
+  "author": "andrewss <andrewss.krlv@gmail.com>",
+  "name": "Удалятор SpamOuts",
+  "description": "Полезные функции для облегчения работы удалятора на znanija.com",
+  "icons": {
+    "128": "canc_noj.png"
+  },
+  "action": {
+    "default_icon": "canc_noj.png",
+    "default_title": "Помощник удалятора znanija.com"
+  },
+  "manifest_version": 3,
+  "host_permissions": ["*://znanija.com/*", "*://brainly.com/*"],
+  "content_scripts": [{
+    "matches": [
+      "*://znanija.com/profil/*", 
+      "*://brainly.com/profile/*"
+    ],
+    "js": ["content-scripts/UserProfile/index.js"],
+    "css": ["content-scripts/UserProfile/style.css"]
+  }, {
+    "matches": [
+      "*://znanija.com/question/add?todelete-queue",
+      "*://brainly.com/question/add?todelete-queue"
+    ],
+    "js": ["content-scripts/AccountsQueue/index.js"],
+    "css": ["content-scripts/AccountsQueue/style.css"]
+  }],
+  "web_accessible_resources": [{
+    "matches": ["<all_urls>"],
+    "resources": ["*.jpg", "*.png", "*.gif"]
+  }],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage"]
+}

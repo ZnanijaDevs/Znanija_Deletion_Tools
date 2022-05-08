@@ -1,0 +1,17 @@
+@mixin overflow {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #e1eaf1;
+    border-radius: 5px;
+  }
+}

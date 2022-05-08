@@ -1,0 +1,9 @@
+@import "./mixins";
+
+.queue__items {
+  padding-right: 5px;
+  margin: 10px 15px 0 10px;
+  height: 100vh;
+
+  @include overflow;
+}
