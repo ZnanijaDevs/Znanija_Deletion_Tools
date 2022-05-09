@@ -5,6 +5,7 @@ import { Flex, Label, Avatar, Text, Link } from "brainly-style-guide";
 import WithTooltip from "./WithTooltip";
 import UserPreview from "./UserPreview";
 import DeleteUserTooltip from "./DeleteUserTooltip";
+import UserContentPreview from "./UserContentPreview";
 
 import type { Message } from "@typings";
 
@@ -17,7 +18,7 @@ export default function QueueItem(props: {
   return (
     <div className="queue-item">
       <div className="queue-item__data">
-        <WithTooltip direction="to-right" tooltip={<DeleteUserTooltip userId={item.user.database_id} />}>
+        <WithTooltip noMaxWidth direction="to-right" tooltip={<DeleteUserTooltip userId={item.user.database_id} />}>
           <Label className="queue-item__reason-label" color="red">{item.reason}</Label>
         </WithTooltip>
         <Flex alignItems="center" className="queue-item__user-data">
@@ -32,7 +33,9 @@ export default function QueueItem(props: {
           </Flex>
         </Flex>
         <Flex alignItems="center" className="queue-item__user-labels">
-          <Label title="Ответы" iconType="answer" color="blue" type="solid">{item.user.answers_count}</Label>
+          <WithTooltip noMaxWidth direction="to-left" tooltip={<UserContentPreview userId={item.user.database_id} />}>
+            <Label iconType="answer" color="blue" type="solid">{item.user.answers_count}</Label>
+          </WithTooltip>
         </Flex>
         <Flex direction="column" className="queue-item__datetime">
           <Moment locale="ru-RU" date={sentAt.toISOString()} interval={1000} fromNow />

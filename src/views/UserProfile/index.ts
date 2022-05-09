@@ -29,8 +29,8 @@ class AccountDeleter {
       <div class="${panel.id}-row">
         <div class="DeleteUserPanel__button-active">Аккаунт</div>
         <div>Задачи</div>
-        <div>Решения</div>
-        <div>Комментарии</div>
+        <div class="DeleteUserPanel__button-active">Решения</div>
+        <div class="DeleteUserPanel__button-active">Комментарии</div>
         <button id="DeleteUserButton">Удалить!</button>
       </div>
       <div class="${panel.id}-row">

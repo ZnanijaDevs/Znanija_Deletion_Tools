@@ -3,16 +3,7 @@ import type {
   UserWarnDataType, 
   UserActiveBanDetailsDataType 
 } from "@typings/brainly";
-
-const WaitForPage = async (path: string) => {
-  const r = await fetch(path);
-
-  if (r.status === 410) throw Error("Пользователь удалён");
-
-  const text = await r.text();
-  
-  return new DOMParser().parseFromString(text, "text/html");
-};
+import WaitForPage from "./WaitForPage";
 
 export default async function GetUser(id: number) {
   const [profilePage, warnsPage] = await Promise.all([

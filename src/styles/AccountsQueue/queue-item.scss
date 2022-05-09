@@ -1,6 +1,8 @@
 /* stylelint-disable declaration-no-important */
 @import "./mixins";
 
+$grey-light: #ebebeb;
+
 .queue-item {
   margin-bottom: 10px;
   border: 2px solid #efefef;
@@ -151,8 +153,6 @@
         opacity: 0.5;
       }
 
-      $grey-light: #ebebeb;
-
       &:only-child {
         padding: 0 0 0 5px;
         background: $grey-light;
@@ -166,6 +166,30 @@
     .warn-content {
       font-size: 14px;
       word-break: break-word;
+      line-height: 1;
+    }
+  }
+
+  &__user-content-list-item {
+    width: 50rem;
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 70% 1fr auto;
+    align-items: center;
+    gap: 5px;
+    padding: 0 5px;
+
+    &:nth-child(2n) {
+      background-color: $grey-light;
+    }
+
+    & > a {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    & .sg-text:not(a) {
       line-height: 1;
     }
   }

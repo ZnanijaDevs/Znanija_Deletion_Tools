@@ -1,5 +1,7 @@
 import cookies from "js-cookie";
 
+import WaitForPage from "./WaitForPage";
+
 type UserTokensDataType = {
   [x in keyof {"key", "fields", "lock"}]?: string;
 }
@@ -20,9 +22,6 @@ export default class AccountDeleter {
 
   private options: DeleteUserOptionsDataType;
 
-  private marketUrl = "https://znanija.com";
-  private profilePath = "/profil";
-
   constructor(userId: number, options: DeleteUserOptionsDataType = {
     answers: true,
     tasks: false,
@@ -40,10 +39,11 @@ export default class AccountDeleter {
   }
 
   async SetPHPTokens() {
-    const url = `${this.marketUrl}${this.profilePath}/__nick__-${this.userId}`;
+    const isBrainly = /brainly/.test(window.location.href);
 
-    const HTML = await fetch(url).then(r => r.text());
-    const doc = new DOMParser().parseFromString(HTML, "text/html");
+    const doc = await WaitForPage(
+      `/${isBrainly ? "profile" : "profil"}/__nick__-${this.userId}`
+    );
 
     const forms: NodeListOf<HTMLFormElement> = doc.querySelectorAll(`form[action*="/admin/users/delete"]`);
     for (const form of forms) {
@@ -93,30 +93,28 @@ export default class AccountDeleter {
       }
     });
 
-    return this.GetNotification();
+    this.FindError();
+    this.Log();
   }
 
   async SendForms() {
     const userId = this.userId;
     const options = this.options;
-
-    if (options.account) {
-      await this.Send(`/admin/users/delete/${userId}`, {
-        "data[DelUser][reason]": options.reason,
-        "data[DelUser][delResponses]": ~~options.answers,
-        "data[DelUser][delTasks]": ~~options.tasks,
-        "data[DelUser][delComments]": ~~options.comments
-      });
-
-      return;
-    }
     
     if (options.tasks) await this.Send("/admin/users/delete_tasks");
     if (options.answers) await this.Send("/admin/users/delete_responses");
     if (options.comments) await this.Send("/admin/users/delete_comments");
+
+    if (options.account) 
+      await this.Send(`/admin/users/delete/${userId}`, {
+        "data[DelUser][reason]": options.reason,
+        "data[DelUser][delResponses]": 0,
+        "data[DelUser][delTasks]": 0,
+        "data[DelUser][delComments]": 0
+      });
   }
 
-  private GetNotification() {
+  private FindError() {
     const infoBarData = cookies.get("Zadanepl_cookie[infobar]");
     if (!infoBarData) throw Error("Непредвиденная ошибка");
 
@@ -126,9 +124,17 @@ export default class AccountDeleter {
       text: string;
     }[] = JSON.parse(atob(unescape(infoBarData)));
 
-    cookies.remove("Zadanepl_cookie[infobar]");
+    for (const notification of notifications) {
+      console.info("Deletion result", notification);
 
-    const notification = notifications[0];
-    if (notification?.class !== "failure") throw Error(notification?.text);
+      if (notification?.class === "failure") 
+        throw Error(`Ошибка удаления пользователя: ${notification.text}`);
+    }
+
+    cookies.remove("Zadanepl_cookie[infobar]");
+  }
+
+  private Log() {
+    navigator.sendBeacon(`https://helpbot.br-helper.com/delete_user/${this.userId}`);
   }
 }

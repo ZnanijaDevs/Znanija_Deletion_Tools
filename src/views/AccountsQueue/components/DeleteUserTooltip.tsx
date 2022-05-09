@@ -55,13 +55,8 @@ export default function DeletUserTooltip(props: {
     setLoading(true);
 
     new AccountDeleter(props.userId, deletionOptions).Delete()
-      .then(_ => {
-        fetch(`https://helpbot.br-helper.com/delete_user/${props.userId}`, {
-          method: "POST"
-        });
-        setDeleted(true);
-      })
-      .catch(err => Flash("info", err.message))
+      .then(() => setDeleted(true))
+      .catch(err => Flash("default", err.message))
       .finally(() => setLoading(false));
   };
 

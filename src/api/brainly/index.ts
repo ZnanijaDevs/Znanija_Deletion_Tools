@@ -1,3 +1,5 @@
+import WaitForPage from "./WaitForPage";
+
 export default new class BrainlyApi {
   private apiPath = "https://znanija.com/api/28";
 
@@ -43,6 +45,27 @@ export default new class BrainlyApi {
     });
 
     return await this.Request("GET", `api_messages/get_messages/${conversation.conversation_id}`);
+  }
+
+  async GetUserContent(userId: number, type: "tasks" | "answers" | "comments") {
+    const contentType = {
+      "tasks": "tasks",
+      "answers": "responses",
+      "comments": "comments_tr"
+    }[type];
+  
+    const page = await WaitForPage(`/users/user_content/${userId}/${contentType}`);
+
+    return [...page.querySelectorAll("table > tbody > tr")].map(row => {
+      const dateSelector = row.querySelector("td:last-child");
+
+      return {
+        content: row.querySelector("a").innerText.trim(),
+        taskLink: row.querySelector("a").href,
+        date: dateSelector.textContent,
+        subject: dateSelector.previousElementSibling.textContent
+      };
+    });
   }
 
 }();
