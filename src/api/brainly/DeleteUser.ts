@@ -94,7 +94,6 @@ export default class AccountDeleter {
     });
 
     this.FindError();
-    this.Log();
   }
 
   async SendForms() {
@@ -112,6 +111,8 @@ export default class AccountDeleter {
         "data[DelUser][delTasks]": 0,
         "data[DelUser][delComments]": 0
       });
+
+    this.Log();
   }
 
   private FindError() {
@@ -128,7 +129,7 @@ export default class AccountDeleter {
       console.info("Deletion result", notification);
 
       if (notification?.class === "failure") 
-        throw Error(`Ошибка удаления пользователя: ${notification.text}`);
+        throw Error(`Ошибка: ${notification.text}`);
     }
 
     cookies.remove("Zadanepl_cookie[infobar]");
