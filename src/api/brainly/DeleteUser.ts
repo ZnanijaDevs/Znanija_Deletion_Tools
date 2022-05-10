@@ -126,8 +126,6 @@ export default class AccountDeleter {
     }[] = JSON.parse(atob(unescape(infoBarData)));
 
     for (const notification of notifications) {
-      console.info("Deletion result", notification);
-
       if (notification?.class === "failure") 
         throw Error(`Ошибка: ${notification.text}`);
     }

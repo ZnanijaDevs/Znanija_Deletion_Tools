@@ -12,8 +12,7 @@ const makeEntries = require("./makeContentScriptEntries");
 const config = {
   entry: {
     ...makeEntries("./src/views/*/*(*.ts|*.tsx|*.js|*.jsx)", "index"),
-    ...makeEntries("./src/styles/*/*.scss", "style"),
-    "background": "./src/background/index.ts"
+    ...makeEntries("./src/styles/*/*.scss", "style")
   },
   plugins: [
     new MiniCssExtractPlugin(),

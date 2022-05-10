@@ -29,9 +29,6 @@
     "matches": ["<all_urls>"],
     "resources": ["*.jpg", "*.png", "*.gif"]
   }],
-  "background": {
-    "service_worker": "background.js"
-  },
   "permissions": ["storage"],
   "short_name": "Znanija_Deletion_Tools"
 }
