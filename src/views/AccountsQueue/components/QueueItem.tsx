@@ -1,6 +1,7 @@
+import { useState } from "react";
 import Moment from "react-moment";
 import { toHTML as MarkdownToHTML } from "slack-markdown";
-import { Flex, Label, Avatar, Text, Link } from "brainly-style-guide";
+import { Flex, Label, Avatar, Text, Link, Button, Icon } from "brainly-style-guide";
 
 import WithTooltip from "./WithTooltip";
 import UserPreview from "./UserPreview";
@@ -15,8 +16,15 @@ export default function QueueItem(props: {
   const item = props.item;
   const sentAt = new Date(+item.message.ts / 0.001);
 
+  const [hidden, setHidden] = useState(false);
+
+  const deleteMessage = () => {
+    navigator.sendBeacon(`https://helpbot.br-helper.com/delete_user/${item.user.database_id}`);
+    setHidden(true);
+  };
+
   return (
-    <div className="queue-item">
+    <div className="queue-item" hidden={hidden}>
       <div className="queue-item__data">
         <WithTooltip noMaxWidth direction="to-right" tooltip={<DeleteUserTooltip userId={item.user.database_id} />}>
           <Label className="queue-item__reason-label" color="red">{item.reason}</Label>
@@ -60,6 +68,14 @@ export default function QueueItem(props: {
             <Text type="span" size="small" color="text-black" weight="bold">{item.sent_by}</Text>
           </Flex>
         </WithTooltip>
+        <Button 
+          iconOnly 
+          size="s" 
+          onClick={deleteMessage} 
+          title="Удалить сообщение" 
+          icon={<Icon type="close" size={16} color="icon-black" />} 
+          type="transparent" 
+        />
       </div>
     </div>
   );

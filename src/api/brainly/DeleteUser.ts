@@ -3,7 +3,7 @@ import cookies from "js-cookie";
 import WaitForPage from "./WaitForPage";
 
 type UserTokensDataType = {
-  [x in keyof {"key", "fields", "lock"}]?: string;
+  [x in "key" | "fields" | "lock"]?: string;
 }
 
 export type DeleteUserOptionsDataType = {
@@ -117,7 +117,10 @@ export default class AccountDeleter {
 
   private FindError() {
     const infoBarData = cookies.get("Zadanepl_cookie[infobar]");
-    if (!infoBarData) throw Error("Непредвиденная ошибка");
+    if (!infoBarData) {
+      console.info("Zadanepl_cookie[infobar] not found");
+      return;
+    }
 
     const notifications: {
       class: string;

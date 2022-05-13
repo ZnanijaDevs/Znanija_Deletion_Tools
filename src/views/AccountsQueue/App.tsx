@@ -57,7 +57,7 @@ export default class App extends React.Component {
     } else if (!connected) {
       return <Spinner />;
     } else if (!queue.length) {
-      return <img draggable="false" height="300" title="Нет сообщений" src={runtime.getURL("vzhuh.jpg")} />;
+      return <img draggable="false" height="300" title="Нет сообщений" src={runtime.getURL("vzhuh.gif")} />;
     }
   
     return (

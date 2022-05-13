@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Spinner, Text, Flex, Avatar, Link, Icon, Headline } from "brainly-style-guide";
 
-import GetUser from "@api/brainly/GetUser";
+import _API from "@api/brainly";
 import type { UserDataType } from "@typings/brainly";
 import WarnEntry from "./WarnEntry";
 
@@ -9,10 +9,14 @@ export default function UserPreview(props: { userId: number }) {
   const [user, setUser] = useState<UserDataType>(null);
 
   useEffect(() => {
-    GetUser(props.userId).then(user => setUser(user));
+    _API.GetUser(props.userId).then(user => setUser(user));
   }, []);
 
-  if (!user) return <Flex justifyContent="center"><Spinner size="xsmall" /></Flex>;
+  if (!user) {
+    return (<Flex justifyContent="center">
+      <Spinner size="xsmall" />
+    </Flex>);
+  }
 
   return (
     <Flex direction="column" className="queue-item__user-preview">
