@@ -1,7 +1,7 @@
 {
   "author": "andrewss <andrewss.krlv@gmail.com>",
   "name": "znanija_deletion_tools",
-  "version": "1.3.0.5",
+  "version": "1.3.0.6",
   "description": "Помощник удалятора на сайте znanija.com",
   "scripts": {
     "watch": "webpack -w --mode=development",
